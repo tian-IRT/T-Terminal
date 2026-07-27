@@ -7,6 +7,10 @@
 > 当前仓库仅用于发布可执行程序、版本说明和使用文档，源码暂不开放。  
 > This repository is used only for binary releases, release notes, and documentation. Source code is not open at this time.
 
+![T-Terminal v1.9.0 home](screenshots/home-v1.9.0.png)
+
+![T-Terminal terminal workspace](screenshots/terminal-v1.9.0.png)
+
 ---
 
 ## 目录 / Contents
@@ -48,11 +52,11 @@ T-Terminal 不是单纯的终端模拟器，它更接近一个 **面向服务器
 
 当前版本：
 
-- `T-Terminal-v1.8.0-windows-x64.exe`
+- `T-Terminal-v1.9.0-windows-x64.exe`
 
 安装方式：
 
-1. 下载 `T-Terminal-v1.8.0-windows-x64.exe`。
+1. 下载 `T-Terminal-v1.9.0-windows-x64.exe`。
 2. 放到你希望保存的位置，例如 `D:\Tools\T-Terminal\`。
 3. 双击运行。
 4. 如果 Windows SmartScreen 提示风险，请确认文件来自本仓库 Release 页面后再选择继续运行。
@@ -66,16 +70,20 @@ T-Terminal 不是单纯的终端模拟器，它更接近一个 **面向服务器
 在 PowerShell 中进入 exe 所在目录，执行：
 
 ```powershell
-Get-FileHash .\T-Terminal-v1.8.0-windows-x64.exe -Algorithm SHA256
+Get-FileHash .\T-Terminal-v1.9.0-windows-x64.exe -Algorithm SHA256
 ```
 
 当前版本 SHA256：
 
 ```text
-84fea31a10e06d6e47e229bb264ce3097dffb2e995cad8095e55f84fe8b6c91a
+826e683280cb2577140c05703d2f92a263042adcb6a6264a52b0d1bd6bb7fee8
 ```
 
-请与 `T-Terminal-v1.8.0-windows-x64.exe.sha256` 中的值进行比对。两者一致，说明文件没有被篡改或损坏。
+请与 `T-Terminal-v1.9.0-windows-x64.exe.sha256` 中的值进行比对。两者一致，说明文件没有被篡改或损坏。
+
+v1.9.0 起也可以在“设置 → 软件更新”中检查新版。程序会先下载 Release 附带的 SHA256 文件，校验通过后才替换可执行文件并自动重启。
+
+![Software update settings](screenshots/settings-update-v1.9.0.png)
 
 ### 4. 首次启动
 
@@ -311,6 +319,8 @@ T-Terminal 支持生成服务器巡检报告。
 
 ### 15. 配置和数据保存位置
 
+v1.9.0 起，持久数据统一保存在 `%LOCALAPPDATA%\T-Terminal`，不再放在构建或程序发布目录中。首次启动会复制旧版便携目录中的配置和数据库，旧文件不会删除或覆盖。
+
 常见数据会保存在本机：
 
 - 应用配置
@@ -340,7 +350,7 @@ T-Terminal 支持生成服务器巡检报告。
 同步失败时，本地缓存文件会保留。你可以重新打开文件、手动上传，或检查远程路径权限。
 
 **SFTP 上传速度显示不准怎么办？**  
-v1.8.0 已修复断开重传后速度沿用旧计时的问题。如果仍异常，可以关闭 SFTP 面板后重新打开。
+v1.9.0 使用远程临时文件、断点续传和实时速度采样；网络恢复后会继续未完成上传，并在完整性校验通过后原子替换目标文件。
 
 **GitHub 下载很慢怎么办？**  
 可以尝试更换网络环境。请只从官方 Release 页面下载，避免使用来源不明的二次分发包。
@@ -381,11 +391,11 @@ Download the latest build from the [Releases](https://github.com/tian-IRT/T-Term
 
 Current build:
 
-- `T-Terminal-v1.8.0-windows-x64.exe`
+- `T-Terminal-v1.9.0-windows-x64.exe`
 
 Installation:
 
-1. Download `T-Terminal-v1.8.0-windows-x64.exe`.
+1. Download `T-Terminal-v1.9.0-windows-x64.exe`.
 2. Place it in a directory you trust, such as `D:\Tools\T-Terminal\`.
 3. Double-click to run it.
 4. If Windows SmartScreen shows a warning, verify that the file comes from this official Release page before continuing.
@@ -399,16 +409,18 @@ Each release includes a `.sha256` checksum file.
 Run this in PowerShell:
 
 ```powershell
-Get-FileHash .\T-Terminal-v1.8.0-windows-x64.exe -Algorithm SHA256
+Get-FileHash .\T-Terminal-v1.9.0-windows-x64.exe -Algorithm SHA256
 ```
 
 Current SHA256:
 
 ```text
-84fea31a10e06d6e47e229bb264ce3097dffb2e995cad8095e55f84fe8b6c91a
+826e683280cb2577140c05703d2f92a263042adcb6a6264a52b0d1bd6bb7fee8
 ```
 
-Compare it with `T-Terminal-v1.8.0-windows-x64.exe.sha256`.
+Compare it with `T-Terminal-v1.9.0-windows-x64.exe.sha256`.
+
+Starting with v1.9.0, you can also use Settings → Software Updates. T-Terminal downloads the SHA256 asset first and installs the executable only after verification succeeds.
 
 ### 4. First Launch
 
@@ -644,6 +656,8 @@ Reports can be exported as PDF. PDF generation uses a Go-native implementation a
 
 ### 15. Local Data
 
+Starting with v1.9.0, persistent data is stored under `%LOCALAPPDATA%\T-Terminal`, outside build and release directories. On first launch, legacy portable configuration and database files are copied to the new location; the original files are retained.
+
 T-Terminal stores data locally, such as:
 
 - App configuration
@@ -673,7 +687,7 @@ Treat AI as an assistant. For deletion, overwrite, permission changes, service r
 The local cached file is kept when sync fails. You can reopen it, upload it manually, or check remote permissions.
 
 **What if SFTP upload speed looks wrong?**  
-v1.8.0 fixes stale speed timing after interrupted uploads. If it still looks wrong, close and reopen the SFTP panel.
+v1.9.0 uses remote temporary files, resumable uploads, and interval-based speed sampling. After a recoverable disconnect, the transfer resumes and atomically replaces the destination only after size verification.
 
 **What if GitHub download is slow?**  
 Try another network environment. Only download builds from the official Releases page.
